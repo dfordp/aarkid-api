@@ -1,0 +1,102 @@
+import { getMessages, getMessageById, getMessagesByUserId, createMessage, deleteMessageById, updateMessageById } from '../mongodb/models/message.js';
+
+export const getAllMessages = async (req, res) => {
+  try {
+    const messages = await getMessages();
+
+    return res.status(200).json(messages);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
+export const getMessage = async (req, res) => {
+  try {
+    const { id  } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ message: 'No id provided' });
+    }
+
+    const message = await getMessageById(id);
+
+    if (!message) {
+      return res.status404).json({ message: 'Message not found' });
+    }
+
+    return res.json(message);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const getMessagesByUserId = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ message: 'No user_id provided' });
+    }
+
+    const messages = await getMessagesByUserId(id);
+
+    if (!messages) {
+      return res.status(404).json({ message: 'Messages not found' });
+    }
+
+    return res.json(messages);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const createNewMessage = async (req, res) => {
+  try {
+    const { user_id, sent_By, message_content } = req.body;
+
+    if (!user_id || !sent_By) {
+      return res.status(400).json({ message: 'User ID and sent_By are required' });
+    }
+
+    const message = await createMessage({ user_id, sent_By, message_content });
+
+    return res.status(201).json(message);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const deleteMessage = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedMessage = await deleteMessageById(id);
+
+    return res.json(deletedMessage);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+}
+
+export const updateMessage = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { user_id, sent_By, message_content } = req.body;
+
+    if (!user_id || !sent_By){
+      return res.sendStatus(400);
+    }
+
+    const updatedMessage = await updateMessageById(id, { user_id, sent_By, message_content });
+
+    return res.status(200).json(updatedMessage).end();
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};

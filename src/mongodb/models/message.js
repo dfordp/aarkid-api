@@ -5,8 +5,7 @@ import mongoose from "mongoose";
 const messageSchema = new mongoose.Schema({
     user_id : { type: mongoose.Schema.Types.ObjectId,ref: 'User'},
     sent_By : { type : String , enum : ["user","gemini"], required : true }, 
-    message_content : {type : String , required : false},
-    message_attachment : {type  : String , required : false},
+    message_content : {type : String , required : true},
 });
 
 

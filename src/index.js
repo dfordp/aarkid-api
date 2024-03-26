@@ -1,6 +1,13 @@
 import express from "express";
 import cors from "cors";
 
+import authRouter from "./routers/auth.router.js";
+import userRouter from "./routers/user.router.js";
+import plantRouter from "./routers/plant.router.js"
+import taskRouter from "./routers/task.router.js"
+import messageRouter from "./routers/message.router.js"
+import healthLogRouter from "./routers/healthLog.router.js"
+
 
 const app = express();
 app.use(cors({
@@ -23,7 +30,12 @@ app.use(express.urlencoded({extended: true}));
 app.get("/", (req, res) => {
     res.send({message: "Hello World"});
 });
-
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
+app.use('/api/plant', plantRouter);
+app.use('/api/task', taskRouter);
+app.use('/api/message', messageRouter);
+app.use('/api/healthlog', healthLogRouter);
 
 const startServer = async () => {
     try {
