@@ -32,7 +32,7 @@ export const getTask = async (req, res) => {
   }
 };
 
-export const getTasksByUserId = async (req, res) => {
+export const getTasksByuserId = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -53,7 +53,7 @@ export const getTasksByUserId = async (req, res) => {
   }
 };
 
-export const getTasksByPlantId = async (req, res) => {
+export const getTasksByplantId = async (req, res) => {
   try {
     const { id } = req.params;
 

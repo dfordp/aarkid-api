@@ -1,6 +1,9 @@
 import express from "express";
 import cors from "cors";
 
+import connectDB from "./mongodb/index.js";
+
+
 import authRouter from "./routers/auth.router.js";
 import userRouter from "./routers/user.router.js";
 import plantRouter from "./routers/plant.router.js"

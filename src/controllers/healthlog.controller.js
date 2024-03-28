@@ -22,7 +22,7 @@ export const getHealthLog = async (req, res) => {
     const healthLog = await getHealthLogById(id);
 
     if (!healthLog) {
-      return res.status404).json({ message: 'HealthLog not found' });
+      return res.status(404).json({ message: 'HealthLog not found' });
     }
 
     return res.json(healthLog);
@@ -32,7 +32,7 @@ export const getHealthLog = async (req, res) => {
   }
 };
 
-export const getHealthLogsByUserId = async (req, res) => {
+export const getHealthLogsByuserId = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -53,7 +53,7 @@ export const getHealthLogsByUserId = async (req, res) => {
   }
 };
 
-export const getHealthLogsByPlantId = async (req, res) => {
+export const getHealthLogsByplantId = async (req, res) => {
   try {
     const { id } = req.params;
 

@@ -1,5 +1,5 @@
 import { getPlants, getPlantById, getPlantsByUserId, createPlant, deletePlantById, updatePlantById } from '../mongodb/models/plant.js';
-import { uploadOnCloudinary } from '../utils/cloudinary.js';
+import { uploadOnCloudinary } from '../utlils/cloudinary.js';
 
 export const getAllPlants = async (req, res) => {
   try {
@@ -33,7 +33,7 @@ export const getPlant = async (req, res) => {
   }
 };
 
-export const getPlantsByUserId = async (req, res) => {
+export const getPlantsByuserId = async (req, res) => {
   try {
     const { id } = req.params;
 

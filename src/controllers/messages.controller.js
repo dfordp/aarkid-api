@@ -22,7 +22,7 @@ export const getMessage = async (req, res) => {
     const message = await getMessageById(id);
 
     if (!message) {
-      return res.status404).json({ message: 'Message not found' });
+      return res.status(404).json({ message: 'Message not found' });
     }
 
     return res.json(message);
@@ -32,7 +32,7 @@ export const getMessage = async (req, res) => {
   }
 };
 
-export const getMessagesByUserId = async (req, res) => {
+export const getMessagesByuserId = async (req, res) => {
   try {
     const { id } = req.params;
 
