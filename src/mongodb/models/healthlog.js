@@ -5,6 +5,7 @@ const healthLogSchema = new mongoose.Schema({
     user_id : { type: mongoose.Schema.Types.ObjectId,ref: 'User'},
     plant_id : { type: mongoose.Schema.Types.ObjectId,ref: 'Plant'},
     attachment : {type  : String , required : false},
+    name : {type  : String , required : false},
     comment : {type:String,required:false},
     dateOfDiagnosis : {type : Date , required: true},
     diagnosisByModel : {type:String,required:false},

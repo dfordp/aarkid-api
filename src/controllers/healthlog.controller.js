@@ -1,4 +1,7 @@
 import { getHealthLogs, getHealthLogById, getHealthLogsByUserId, getHealthLogsByPlantId, createHealthLog, deleteHealthLogById, updateHealthLogById } from '../mongodb/models/healthLog.js';
+import { getPlantById } from '../mongodb/models/plant.js';
+import { uploadOnCloudinary } from '../utlils/cloudinary.js';
+import { convertoBuffer, provideHealthlog } from '../utlils/gemini.js';
 
 export const getAllHealthLogs = async (req, res) => {
   try {
@@ -76,13 +79,30 @@ export const getHealthLogsByplantId = async (req, res) => {
 
 export const createNewHealthLog = async (req, res) => {
   try {
-    const { user_id, plant_id, attachment, comment, dateOfDiagnosis, diagnosisByModel } = req.body;
+    const { user_id, plant_id, comment, dateOfDiagnosis,name } = req.body;
+    // console.log(req.file);
+    console.log(req.body);
 
     if (!user_id || !plant_id || !dateOfDiagnosis) {
       return res.status(400).json({ message: 'User ID, Plant ID and date of diagnosis are required' });
     }
 
-    const healthLog = await createHealthLog({ user_id, plant_id, attachment, comment, dateOfDiagnosis, diagnosisByModel });
+    const plant = await getPlantById(plant_id);
+    const supportData = "dateofPlanting" + plant.dateOfPlanting.toISOString() + plant.comment + comment ;
+    console.log(supportData);
+    // const supportData = "are you receiving the image along with the message?"
+
+    const bufferData = convertoBuffer(req.file.path , req.file.mimetype);
+    console.log("bufferData",bufferData.inlineData.data);
+
+    const diagnosisByModel = await provideHealthlog(supportData,bufferData);
+    console.log(diagnosisByModel);
+
+    const image = await uploadOnCloudinary(req.file.path);
+    const imageLink = image.secure_url;
+
+
+    const healthLog = await createHealthLog({ user_id, plant_id, attachment:imageLink , name , comment, dateOfDiagnosis, diagnosisByModel });
 
     return res.status(201).json(healthLog);
   } catch (error) {

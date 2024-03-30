@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-const fs = require("fs");
+import fs from "fs"
 
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -18,10 +18,12 @@ export const convertoBuffer = (path, mimeType) => {
 
 
 export const provideHealthlog = async (supportData , attachmentBuffer) => {
-    const res = await model.generateContent([supportData,attachmentBuffer])
+    const prompt = "You are a botanist. You have been tasked with helping indviduals to help monitor and see their plants. You are not provide any provide any professional advice just simple steps one can to improve and manage their plants. YOu shall entertain no other requests" + supportData
+    console.log(prompt);
+    const res = await model.generateContent([prompt,attachmentBuffer])
     const response = await res.response;
     const text = response.text();
-    console.log(text);
+    return text;
 }
 
 export const createChat = async(prevChats , newMessage) => {

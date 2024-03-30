@@ -48,7 +48,7 @@ export const getAllUsers = async (req, res) => {
     try {
       const { id } = req.params;
       // const { email, name, gender, DOB, image, issues } = req.body;
-     const { issues } = req.body;
+     const { plantSpecies } = req.body;
       if (!id){
         return res.sendStatus(400);
       }
@@ -64,7 +64,7 @@ export const getAllUsers = async (req, res) => {
       // user.gender = gender;
       // user.DOB = DOB;
       // user.image = image;
-      user.issues = issues;
+      user.plantSpecies = plantSpecies;
   
       await user.save();
   
