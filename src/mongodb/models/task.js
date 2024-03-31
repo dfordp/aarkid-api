@@ -3,9 +3,8 @@ import mongoose from "mongoose";
 
 const taskSchema = new mongoose.Schema({
     user_id : { type: mongoose.Schema.Types.ObjectId,ref: 'User'},
-    plant_id : { type: mongoose.Schema.Types.ObjectId,ref: 'Plant'},
+    plant_name : {type:String,required:true},
     name : {type:String,required:true},
-    dateOfPlanting : {type : Date , required: true},
     isCompleted : {type:Boolean,default:false,required:true},
 });
 

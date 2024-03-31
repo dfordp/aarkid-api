@@ -11,7 +11,7 @@ router.route('/getTask/:id').get(isLoggedIn, isOwner, getTask);
 router.route('/getTasksByUserId/:id').get(isLoggedIn, isOwner, getTasksByuserId);
 router.route('/getTasksByPlantId/:id').get(isLoggedIn, isOwner, getTasksByplantId);
 router.route('/createNewTask').post(isLoggedIn, createNewTask);
-router.route('/deleteTask/:id').delete(isLoggedIn, isOwner, deleteTask);
-router.route('/updateTask/:id').patch(isLoggedIn, isOwner, updateTask);
+router.route('/deleteTask/:id').delete(isLoggedIn, deleteTask);
+router.route('/updateTask/:id').patch(isLoggedIn, updateTask);
 
 export default router;

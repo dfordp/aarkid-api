@@ -76,13 +76,13 @@ export const getTasksByplantId = async (req, res) => {
 
 export const createNewTask = async (req, res) => {
   try {
-    const { user_id, plant_id, name, dateOfPlanting, isCompleted } = req.body;
+    const { user_id, plant_name, name } = req.body;
 
-    if (!user_id || !plant_id || !name || !dateOfPlanting) {
+    if (!user_id || !plant_name || !name) {
       return res.status(400).json({ message: 'User ID, Plant ID, name and date of planting are required' });
     }
 
-    const task = await createTask({ user_id, plant_id, name, dateOfPlanting, isCompleted });
+    const task = await createTask({ user_id, plant_name, name});
 
     return res.status(201).json(task);
   } catch (error) {
@@ -107,13 +107,13 @@ export const deleteTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const { user_id, plant_id, name, dateOfPlanting, isCompleted } = req.body;
+    const { isCompleted } = req.body;
 
-    if (!user_id || !plant_id || !name || !dateOfPlanting){
+    if (!isCompleted){
       return res.sendStatus(400);
     }
 
-    const updatedTask = await updateTaskById(id, { user_id, plant_id, name, dateOfPlanting, isCompleted });
+    const updatedTask = await updateTaskById(id, { isCompleted });
 
     return res.status(200).json(updatedTask).end();
   } catch (error) {

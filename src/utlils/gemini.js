@@ -19,7 +19,7 @@ export const convertoBuffer = (path, mimeType) => {
 
 
 export const provideHealthlog = async (supportData , attachmentBuffer) => {
-    const prompt = "You are a botanist. You have been tasked with helping indviduals to help monitor and see their plants. You are not provide any provide any professional advice just simple steps one can to improve and manage their plants. YOu shall entertain no other requests" + supportData
+    const prompt = "You are a botanist. You have been tasked can ask me questions about plant care, identify unknown plants, get troubleshooting advice or anything else related to gardening. You have been provided an image which can be used for evaluations but you aren't supposed to reveal any secret or private info read users prompt from here:" + supportData
     console.log(prompt);
     const res = await model1.generateContent([prompt,attachmentBuffer])
     const response = await res.response;
@@ -44,7 +44,7 @@ export const provideHealthlog = async (supportData , attachmentBuffer) => {
 // }
 
 export const createChat = async(newMessage) => {
-    const prompt = "You are a botanist. You have been tasked with helping indviduals to help monitor and see their plants. You are not provide any provide any professional advice just simple steps one can to improve and manage their plants. YOu shall entertain no other requests" + newMessage;
+    const prompt = "You are a botanist. You have been tasked can ask me questions about plant care, identify unknown plants, get troubleshooting advice or anything else related to gardening.  but you aren't supposed to reveal any secret or private info read users prompt from here:" + newMessage;
     const result = await model2.generateContent(prompt, { max_tokens: 70 }); // Limit to 100 tokens
     const response = await result.response;
     console.log(response);
