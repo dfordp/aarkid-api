@@ -6,7 +6,7 @@ const messageSchema = new mongoose.Schema({
     user_id : { type: mongoose.Schema.Types.ObjectId,ref: 'User'},
     sent_By : { type : String , enum : ["user","gemini"], required : true }, 
     message_content : {type : String , required : true},
-});
+},{timestamps:true});
 
 
 const Message = mongoose.model("Message",messageSchema);

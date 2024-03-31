@@ -1,4 +1,5 @@
 import { getMessages, getMessageById, getMessagesByUserId, createMessage, deleteMessageById, updateMessageById } from '../mongodb/models/message.js';
+import { createChat } from '../utlils/gemini.js';
 
 export const getAllMessages = async (req, res) => {
   try {
@@ -56,14 +57,27 @@ export const getMessagesByuserId = async (req, res) => {
 export const createNewMessage = async (req, res) => {
   try {
     const { user_id, sent_By, message_content } = req.body;
+    console.log(req.body);
 
-    if (!user_id || !sent_By) {
+    if (!user_id || !sent_By ||!message_content) {
       return res.status(400).json({ message: 'User ID and sent_By are required' });
     }
 
     const message = await createMessage({ user_id, sent_By, message_content });
+    // const messages = await getMessagesByUserId(user_id);
+    // console.log(messages);
+    // const history = messages.map(message => ({
+    //   role: message.sent_By,
+    //   parts: [{ text: message.message_content }],
+    // }));
+    // console.log(history);
 
-    return res.status(201).json(message);
+    // const response = await createChat(history,message_content);
+    const response = await createChat(message_content);
+
+    const gemini_response = await createMessage({ user_id, sent_By : "gemini", message_content : response });
+
+    return res.status(201).json(gemini_response);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Server error' });
