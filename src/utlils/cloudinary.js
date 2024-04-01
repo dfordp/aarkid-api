@@ -13,11 +13,12 @@ cloudinary.config({
           const response = await cloudinary.uploader.upload(localFilePath, {
               resource_type: "auto"
           })
-          fs.unlinkSync(localFilePath)
+          //uncomment for development server only
+          // fs.unlinkSync(localFilePath)
           return response;
   
-      } catch (error) {
-          fs.unlinkSync(localFilePath)
+      // } catch (error) {
+      //     fs.unlinkSync(localFilePath)
           return null;
       }
   }
