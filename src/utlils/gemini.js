@@ -1,10 +1,23 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI,HarmBlockThreshold,HarmCategory  } from "@google/generative-ai";
 import fs from "fs"
 
+const generationConfig = {
+  maxOutputTokens: 150,
+  temperature: 0.9,
+  topP: 0.1,
+  topK: 16,
+};
+
+const safetySettings = [
+  {
+    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+    threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+  },
+];
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model1 = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
-const model2 = genAI.getGenerativeModel({ model: "gemini-pro"});
+const model1 = genAI.getGenerativeModel({ model: "gemini-pro-vision",generationConfig, safetySettings  });
+const model2 = genAI.getGenerativeModel({ model: "gemini-pro"} ,generationConfig, safetySettings );
 
 
 export const convertoBuffer = (path, mimeType) => {
@@ -44,8 +57,8 @@ export const provideHealthlog = async (supportData , attachmentBuffer) => {
 // }
 
 export const createChat = async(newMessage) => {
-    const prompt = "You are a botanist. You have been tasked can ask me questions about plant care, identify unknown plants, get troubleshooting advice or anything else related to gardening.  but you aren't supposed to reveal any secret or private info read users prompt from here:" + newMessage;
-    const result = await model2.generateContent(prompt, { max_tokens: 70 }); // Limit to 100 tokens
+    const prompt = "You are a botanist. You have been tasked can ask me questions about plant care, identify unknown plants, get troubleshooting advice or anything else related to gardening.  but you aren't supposed to reveal any secret or private info read users prompt from here (be as human like as you possibly can):" + newMessage;
+    const result = await model2.generateContent(prompt); // Limit to 100 tokens
     const response = await result.response;
     console.log(response);
     const text = response.text();
