@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getAllHealthLogs, getHealthLog, getHealthLogsByuserId, getHealthLogsByplantId, createNewHealthLog, deleteHealthLog, updateHealthLog } from '../controllers/healthLog.controller.js';
+import { getAllHealthLogs, getHealthLog, getHealthLogsByuserId, getHealthLogsByplantId, createNewHealthLog, deleteHealthLog, updateHealthLog } from '../controllers/healthlog.controller.js';
 import { isLoggedIn, isOwner, upload } from "../middleware/index.js";
 
 const router = express.Router();

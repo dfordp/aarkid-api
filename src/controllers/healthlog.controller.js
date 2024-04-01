@@ -1,4 +1,4 @@
-import { getHealthLogs, getHealthLogById, getHealthLogsByUserId, getHealthLogsByPlantId, createHealthLog, deleteHealthLogById, updateHealthLogById } from '../mongodb/models/healthLog.js';
+import { getHealthLogs, getHealthLogById, getHealthLogsByUserId, getHealthLogsByPlantId, createHealthLog, deleteHealthLogById, updateHealthLogById } from '../mongodb/models/healthlog.js';
 import { getPlantById } from '../mongodb/models/plant.js';
 import { uploadOnCloudinary } from '../utlils/cloudinary.js';
 import { convertoBuffer, provideHealthlog } from '../utlils/gemini.js';
