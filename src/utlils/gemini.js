@@ -16,7 +16,7 @@ const safetySettings = [
 ];
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model1 = genAI.getGenerativeModel({ model: "gemini-pro-vision",generationConfig, safetySettings  });
+const model1 = genAI.getGenerativeModel({ model: "gemini-pro-vision"  });
 const model2 = genAI.getGenerativeModel({ model: "gemini-pro"} ,generationConfig, safetySettings );
 
 
