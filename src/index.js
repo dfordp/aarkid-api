@@ -43,7 +43,7 @@ app.use('/api/healthlog', healthLogRouter);
 const startServer = async () => {
     try {
         await connectDB(process.env.MONGODB_URL);
-        app.listen(8080, () => console.log("Server started on http://localhost:8080"));
+        app.listen(8080, () => console.log("Aarchid Api started on http://localhost:8080"));
     } catch (error) {
         console.log(error);
     }
