@@ -32,7 +32,7 @@ export const convertoBuffer = (path, mimeType) => {
 
 
 export const provideHealthlog = async (supportData , attachmentBuffer) => {
-    const prompt = "You are a botanist. You have been tasked can ask me questions about plant care, identify unknown plants, get troubleshooting advice or anything else related to gardening. You have been provided an image which can be used for evaluations but you aren't supposed to reveal any secret or private info read users prompt from here:" + supportData
+    const prompt = "You are a botanist. You have been provided an image which can be used for evaluations of the plant you utlizing any of the information provided regarding the plant's health only and nothing else and some little suggestions on how to improve it's health" + supportData
     console.log(prompt);
     const res = await model1.generateContent([prompt,attachmentBuffer])
     const response = await res.response;
