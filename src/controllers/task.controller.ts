@@ -1,6 +1,7 @@
+import { Request, Response } from 'express';
 import { getTasks, getTaskById, getTasksByUserId, getTasksByPlantId, createTask, deleteTaskById, updateTaskById } from '../mongodb/models/task.js';
 
-export const getAllTasks = async (req, res) => {
+export const getAllTasks = async (req: Request, res: Response) => {
   try {
     const tasks = await getTasks();
 
@@ -11,9 +12,9 @@ export const getAllTasks = async (req, res) => {
   }
 };
 
-export const getTask = async (req, res) => {
+export const getTask = async (req: Request, res: Response) => {
   try {
-    const { id  } = req.params;
+    const { id } = req.params;
 
     if (!id) {
       return res.status(400).json({ message: 'No id provided' });
@@ -32,7 +33,7 @@ export const getTask = async (req, res) => {
   }
 };
 
-export const getTasksByuserId = async (req, res) => {
+export const getTasksByuserId = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -53,7 +54,7 @@ export const getTasksByuserId = async (req, res) => {
   }
 };
 
-export const getTasksByplantId = async (req, res) => {
+export const getTasksByplantId = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -74,7 +75,7 @@ export const getTasksByplantId = async (req, res) => {
   }
 };
 
-export const createNewTask = async (req, res) => {
+export const createNewTask = async (req: Request, res: Response) => {
   try {
     const { user_id, plant_name, name } = req.body;
 
@@ -82,7 +83,7 @@ export const createNewTask = async (req, res) => {
       return res.status(400).json({ message: 'User ID, Plant ID, name and date of planting are required' });
     }
 
-    const task = await createTask({ user_id, plant_name, name});
+    const task = await createTask({ user_id, plant_name, name });
 
     return res.status(201).json(task);
   } catch (error) {
@@ -91,7 +92,7 @@ export const createNewTask = async (req, res) => {
   }
 };
 
-export const deleteTask = async (req, res) => {
+export const deleteTask = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -102,14 +103,14 @@ export const deleteTask = async (req, res) => {
     console.log(error);
     return res.sendStatus(400);
   }
-}
+};
 
-export const updateTask = async (req, res) => {
+export const updateTask = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { isCompleted } = req.body;
 
-    if (!isCompleted){
+    if (!isCompleted) {
       return res.sendStatus(400);
     }
 

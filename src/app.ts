@@ -1,21 +1,18 @@
 import express from "express";
 import cors from "cors";
+import connectDB from "./mongodb";
 
-import connectDB from "./mongodb/index.js";
-
-
-import authRouter from "./routers/auth.router.js";
-import userRouter from "./routers/user.router.js";
-import plantRouter from "./routers/plant.router.js"
-import taskRouter from "./routers/task.router.js"
-import messageRouter from "./routers/message.router.js"
-import healthLogRouter from "./routers/healthLog.router.js"
-
+import authRouter from "./routers/auth.router";
+import userRouter from "./routers/user.router";
+import plantRouter from "./routers/plant.router"
+import taskRouter from "./routers/task.router"
+import messageRouter from "./routers/message.router"
+import healthLogRouter from "./routers/healthLog.router"
 
 const app = express();
 app.use(cors({
     origin: function (origin, callback) {
-      const allowedOrigins = ['http://localhost:5173','https://aarkid-client.vercel.app'];
+      const allowedOrigins = ['http://localhost:3000','http://localhost:5173','https://aarkid-client.vercel.app'];
       if (!origin || allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true)
       } else {
@@ -31,7 +28,7 @@ app.use(express.urlencoded({extended: true}));
 
 
 app.get("/", (req, res) => {
-    res.send({message: "Hello World"});
+    res.send({message: "Hello From Aarchid API"});
 });
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
@@ -40,13 +37,11 @@ app.use('/api/task', taskRouter);
 app.use('/api/message', messageRouter);
 app.use('/api/healthlog', healthLogRouter);
 
-const startServer = async () => {
+export const startServer = async () => {
     try {
-        await connectDB(process.env.MONGODB_URL);
+        if(process.env.MONGODB_URL) await connectDB(process.env.MONGODB_URL);
         app.listen(8080, () => console.log("Aarchid Api started on http://localhost:8080"));
     } catch (error) {
         console.log(error);
     }
 }
-
-startServer();

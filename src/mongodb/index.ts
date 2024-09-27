@@ -1,11 +1,8 @@
 import mongoose from "mongoose";
 
-const connectDB = (url) => {
+const connectDB = (url : string) => {
     mongoose.set('strictQuery', true);
-    mongoose.connect(url, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
+    mongoose.connect(url)
     .then(() => console.log("Connected to MongoDB"))
     .catch((error) => console.log(error));
 }
